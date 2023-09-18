@@ -1,0 +1,42 @@
+{% extends 'pioner_gallery/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-dark">Upload Photo</h2>
+  <form method="post" enctype="multipart/form-data" class="bg-light p-4 rounded">
+    {% csrf_token %}
+    <div class="form-group">
+      {% for field in form %}
+        <div class="form-group">
+          {{ field.label_tag }}  <!-- Render the label -->
+          {{ field }}  <!-- Render the field -->
+        </div>
+      {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+  </form>
+  {% if messages %}
+  <div class="mt-3">
+    {% for message in messages %}
+      <div class="alert alert-success" role="alert">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<style>
+input[type="text"], input[type="file"], select, textarea {
+  width: 100%;  /* Full width */
+  padding: 12px;  /* Some padding */ 
+  border: 1px solid #ccc;  /* Gray border */
+  border-radius: 4px;  /* Rounded borders */
+  box-sizing: border-box;  /* Make sure that padding and width stays in place */
+  margin-top: 6px;  /* Add a top margin */
+  margin-bottom: 16px;  /* Bottom margin */
+  resize: vertical  /* Allow the user to vertically resize the textarea (not horizontally) */
+}
+</style>
+
+{% endblock %}

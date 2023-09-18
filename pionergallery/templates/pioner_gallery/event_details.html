@@ -1,0 +1,83 @@
+{% extends 'pioner_gallery/base.html' %}
+
+{% block content %}
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .card {
+            margin: 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+        }
+        #toggle-button {
+            margin: 15px;
+            transition: all 0.3s ease;
+        }
+        #toggle-button:hover {
+            background-color: #5a5a5a;
+        }
+        #form-card {
+            margin: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card mb-3 {
+            height: 100%;
+            v-height: 100% !important;
+        }
+    </style>
+   <div class="card mb-3">
+         {% csrf_token %}
+        <div class="card-header">
+            {{ event.title }}
+        </div>
+        <div class="card-body">
+            <p class="card-text">{{ event.description }}</p>
+            <p class="card-text"><small class="text-muted">{{ event.start_time }} to {{ event.end_time }}</small></p>
+            {# Sharable note #}
+
+<button onclick="shareEvent('{{ event.shareable_link }}')" class="btn btn-secondary">Share</button>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+  <script>
+            {# Sharable note #}
+
+        function shareEvent(link) {
+            navigator.clipboard.writeText(link)
+            .then(() => {
+                alert('Link copied to clipboard');
+            })
+            .catch(err => {
+                console.error('Failed to copy link: ', err);
+            });
+        }
+
+            {# Toggle button #}
+        function toggleForm() {
+            var formCard = document.getElementById('form-card');
+            var toggleButton = document.getElementById('toggle-button');
+            if (formCard.style.display === "none") {
+                formCard.style.display = "block";
+                toggleButton.innerHTML = 'X';
+            } else {
+                formCard.style.display = "none";
+                toggleButton.innerHTML = '+';
+            }
+        }
+
+        // Other JavaScript content here, such as FullCalendar initialization
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+{% endblock %}

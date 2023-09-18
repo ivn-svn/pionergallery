@@ -1,0 +1,86 @@
+{% extends 'pioner_gallery/base.html' %}
+{% load static %}
+{% block content %}
+
+<section style="background-color: #eee;">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        {% if user_profile.profile_picture %}
+                        <img src="{{ user_profile.profile_picture.url }}" alt="avatar" class="rounded-circle img-fluid" style="width: 250px; height: 250px; object-fit: cover;">
+                        {% else %}
+<img src="{% static 'images\noprofile.gif' %}" alt="avatar" class="rounded-circle img-fluid" style="width: 250px; height: 250px; object-fit: contain;">
+
+                        {% endif %}
+                        <form method="post" enctype="multipart/form-data" action="{% url 'upload_profile_picture' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="profile_picture" class="form-label">Upload Profile Picture:</label>
+                                <input type="file" class="form-control" id="profile_picture" name="profile_picture">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data" action="{% url 'edit_user_profile_details' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username:</label>
+                                <input type="text" class="form-control" id="username" name="username" value="{{ user_profile.username }}" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label for="first_name" class="form-label">First Name:</label>
+                                <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user_profile.first_name }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label">Last Name:</label>
+                                <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user_profile.last_name }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" value="{{ user_profile.email }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">Phone:</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" value="{{ user_profile.phone }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="mobile" class="form-label">Mobile:</label>
+                                <input type="tel" class="form-control" id="mobile" name="mobile" value="{{ user_profile.mobile }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address:</label>
+                                <input type="text" class="form-control" id="address" name="address" value="{{ user_profile.address }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="github_username" class="form-label">GitHub Username:</label>
+                                <input type="text" class="form-control" id="github_username" name="github_username" value="{{ user_profile.github_username }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="twitter_username" class="form-label">Twitter Username:</label>
+                                <input type="text" class="form-control" id="twitter_username" name="twitter_username" value="{{ user_profile.twitter_username }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="instagram_username" class="form-label">Instagram Username:</label>
+                                <input type="text" class="form-control" id="instagram_username" name="instagram_username" value="{{ user_profile.instagram_username }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="facebook_username" class="form-label">Facebook Username:</label>
+                                <input type="text" class="form-control" id="facebook_username" name="facebook_username" value="{{ user_profile.facebook_username }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

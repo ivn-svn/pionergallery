@@ -1,0 +1,56 @@
+{% extends 'pioner_gallery/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* Instagram-like frame styles */
+    .instagram-frame {
+        border: 1px solid #dbdbdb;
+        border-radius: 3px;
+        padding: 10px;
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        position: relative;
+    }
+
+    .instagram-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .btn-instagram {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        font-size: 20px;
+    }
+
+    .btn-like, .btn-share {
+        color: #333;
+    }
+
+    .btn-like:hover, .btn-share:hover {
+        color: #e1306c;  /* Instagram pink color */
+    }
+</style>
+
+<main>
+    <div class="container mt-5">
+        <div class="row">
+            {% for photo_url in photo_urls %}
+            <div class="col-12 mb-4">
+                <!-- Display each photo in Instagram style -->
+                <div class="instagram-frame">
+                    <img src="{% static 'images/gallery/watermarked/' %}{{ photo_url }}" alt="Photo" class="img-fluid">
+                    <div class="instagram-actions">
+                        <button class="btn-instagram btn-like">&#x2764;</button>  <!-- Heart symbol for like -->
+                        <button class="btn-instagram btn-share">&#x1f5e3;</button>  <!-- Share icon -->
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

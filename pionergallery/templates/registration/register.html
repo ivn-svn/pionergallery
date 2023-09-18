@@ -1,0 +1,9 @@
+{% extends 'pioner_gallery/base.html' %}
+{% block content %}
+{% if login_success %}
+<div class="alert alert-success" role="alert">
+  {{ login_success }}
+</div>
+{% endif %}
+    <p>Logged in user: {{ user }}</p>
+{% endblock content %}
