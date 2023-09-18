@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-67@a+5%1pcha0*u#_dwcz_7pb17q2#+_x7#4n3(4%yp$b1ap8(
 DEBUG = True
 
 # Allowed hosts on pythonanywhere:
-ALLOWED_HOSTS = ['yamadasan.mysql.pythonanywhere-services.com', 'yamadasan.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['yamadasan.mysql.pythonanywhere-services.com', 'https://pionergallery-j13a1yqto-ivn-svn.vercel.app/', '127.0.0.1']
 #
 # Allowed hosts on local:
 # ALLOWED_HOSTS = ['127.0.0.1']

@@ -11,37 +11,12 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
-#################################################################################
-#################################################################################
-#################################################################################
-### PAYMENT DATA SETUP ###
-BRAINTREE_MERCHANT_ID = 'xrb675jwjhnk8qzh'
-BRAINTREE_PUBLIC_KEY = 'gd3tc53n9y5x3fps'
-BRAINTREE_PRIVATE_KEY = 'b07a28f2c00ea3af83f28d8f6e1c7776'
-#################################################################################
-#################################################################################
-#################################################################################
-
-# EMAIL SETUP SETTINGS
-#################################################################################
-#################################################################################
-#################################################################################
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'apikey' # Important: This is not the username or e-mail address from SendGrid but just a keyword.
-EMAIL_HOST_PASSWORD = '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'
-#API_KEY = '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'
-DEFAULT_FROM_EMAIL = 'iv.svetlin@outlook.com'
-# END SECTION FOR EMAIL SETUP SETTINGS
-#################################################################################
-#################################################################################
-#################################################################################
-
+import logging
+logger = logging.getLogger('django')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -50,67 +25,30 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-67@a+5%1pcha0*u#_dwcz_7pb17q2#+_x7#4n3(4%yp$b1ap8('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
 DEBUG = True
 
 # Allowed hosts on pythonanywhere:
-# ALLOWED_HOSTS = ['yamadasan.mysql.pythonanywhere-services.com', 'yamadasan.pythonanywhere.com']
+ALLOWED_HOSTS = ['yamadasan.mysql.pythonanywhere-services.com', 'https://pionergallery-j13a1yqto-ivn-svn.vercel.app/', '127.0.0.1']
 #
 # Allowed hosts on local:
-ALLOWED_HOSTS = ['127.0.0.1']
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': 'debug.log',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['file'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'your_app_name': {  # Replace 'your_app_name' with the name of your app or __name__ for current module
-            'handlers': ['file'],
-            'level': 'DEBUG',
-        },
-    },
-}
+# ALLOWED_HOSTS = ['127.0.0.1']
+logger.debug("ALLOWED_HOSTS value: %s", ALLOWED_HOSTS)
+
 
 # Application definition
 INSTALLED_APPS = [
-    'django_extensions',
-    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Current webapp app:
     'pioner_gallery.webapp',
     'pioner_gallery.blog',
-    'pioner_gallery.user_login',
-    'pioner_gallery.mediaplanner',
-    'pioner_gallery.marketplace',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'ckeditor',
-    # 'pioner_gallery.user_login.apps.UserLoginConfig.name',
-    # 'allauth.account.auth_backends.AuthenticationBackend',
+    'pioner_gallery.web',
 ]
 
-default_app_config = 'pioner_gallery.user_login.apps.UserLoginConfig'
-
-# https://stackoverflow.com/questions/63260580/how-to-fix-this-error-no-module-named-allauth
-# AUTHENTICATION_BACKENDS = (
-#     "django.contrib.auth.backends.ModelBackend",
-#     "allauth.account.auth_backends.AuthenticationBackend",
-# )
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -123,20 +61,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'pioner_gallery.urls'
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'height': 300,
-        'width': 800,
-    },
-}
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #        'DIRS': [BASE_DIR, 'pioner_gallery', 'templates']
+#        'DIRS': [BASE_DIR, 'pioner_gallery', 'templates']
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        #        'DIRS': ['/home/yamadasan/pioner-gallery/pioner_gallery/templates/pioner_gallery/'],
+#        'DIRS': ['/home/yamadasan/pioner-gallery/pioner_gallery/templates/pioner_gallery/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,47 +74,43 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'pioner_gallery.user_login.context_processors.user_profile',
-                'pioner_gallery.user_login.context_processors.cookie_consent',
             ],
         },
     },
 ]
 
+
 WSGI_APPLICATION = 'pioner_gallery.wsgi.application'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # DB FOR PYTHONANYWHERE:
 #
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.mysql",
-#         "NAME": "yamadasan$mysqlanywhere",
-#         "USER": "yamadasan",
-#         "PASSWORD": "somepass",
-#         "HOST": "yamadasan.mysql.pythonanywhere-services.com",
-#         "PORT": "3306",
-#     }
-# }
-
-# DB FOR LOCAL TESTING:
-#
-# DB FOR LOCAL TESTING WITH DOCKER:
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "yamadasan$mysqlanywhere",
         "USER": "yamadasan",
         "PASSWORD": "somepass",
-        'HOST': '127.0.0.1',  # Use the service name of the MySQL container
+        "HOST": "yamadasan.mysql.pythonanywhere-services.com",
         "PORT": "3306",
     }
 }
 
-# Issues resolution advisory:
-# https://chat.openai.com/share/5c83716a-f380-4e78-b198-ae0494f20795
+# DB FOR LOCAL TESTING:
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'my_local_database',
+#         'USER': 'your_mysql_username',
+#         'PASSWORD': 'your_mysql_password',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#     }
+# }
 
 
 # Password validation
@@ -205,6 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -216,11 +143,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/staticfiles/'
-# STATIC_URL = '/home/yamadasan/pioner-gallery/pioner_gallery/staticfiles/'
+STATIC_URL = '/home/yamadasan/pioner-gallery/pioner_gallery/staticfiles/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
@@ -232,6 +159,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-print('MEDIA_ROOT: ', MEDIA_ROOT)
-print('MEDIA_URL: ', MEDIA_URL)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles/images/gallery')
