@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Shop Gallery</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional Styles (if needed) -->
+    <style>
+        .fixed-height-img {
+            height: 200px; /* Adjust this as per your requirement */
+            object-fit: contain;
+            width: 100%;
+            display: block;
+        }
+
+        .card-body, .col-md-4 {
+            padding-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+{% extends 'pioner_gallery/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="mb-4">
+    <form method="get" action="{% url 'products' %}">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for stock images..." name="query">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="mt-3 mb-3"></div>
+<div class="container">
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <img src="{{ product.photo.url }}" class="card-img-top fixed-height-img" alt="Placeholder">
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.photo_name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><b>Price: € {{ product.price|floatformat:2 }}</b></p>
+                    <p class="card-text">Location: {{ product.location_taken }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+<form method="post" action="{% url 'add_to_cart' %}">
+    {% csrf_token %}
+    <input type="hidden" name="photo_id" value="{{ product.id }}">
+    <button type="submit" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
+</form>
+
+                        </div>
+                        <small class="text-muted">{{ product.category }}</small>
+                        <small class="text-muted">Uploaded by: <a
+                                href="http://127.0.0.1:9005/{{ product.user }}/user_gallery/">{{ product.user }}</a></small>
+                        <small class="text-muted">Taken by: {{ product.author }}</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="mt-3 mb-3"></div>
+{% endblock content %}
+
+{% if messages %}
+    <div class="container mt-2">
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<!-- Bootstrap JS, Popper.js, and jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

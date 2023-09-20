@@ -1,0 +1,58 @@
+{% extends 'pioner_gallery/base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Required meta tags and fonts -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    <!-- Fancy calendar styles -->
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+    <link href='{% static 'calendar-19/fullcalendar/packages/core/main.css' %}' rel='stylesheet' />
+    <link href='{% static 'calendar-19/fullcalendar/packages/daygrid/main.css' %}' rel='stylesheet' />
+    <link rel="stylesheet" href="{% static 'calendar-19/css/style.css'%}">
+
+    <div class="content">
+        <div id='calendar'></div>
+    </div>
+
+    <!-- JavaScript libraries -->
+    <script src="{% static 'calendar-19/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'calendar-19/js/popper.min.js' %}"></script>
+    <script src="{% static 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'calendar-19/fullcalendar/packages/core/main.js'%}"></script>
+    <script src="{% static 'calendar-19/fullcalendar/packages/daygrid/main.js'%}"></script>
+
+    <!-- Data fetching and calendar initialization script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calendarEl = document.getElementById('calendar');
+
+            fetch('http://127.0.0.1:9005/calendar_data/')
+                .then(response => response.json())
+                .then(events => {
+                    // Convert the events format to match FullCalendar's requirements
+                    const formattedEvents = events.map(event => ({
+                        title: event.title,
+                        start: event.start,
+                        end: event.end,
+                        url: event.url
+                    }));
+
+                    const calendar = new FullCalendar.Calendar(calendarEl, {
+                        plugins: ['dayGrid'],
+                        header: {
+                            left: 'prev,next',
+                            center: 'title',
+                            right: 'today'
+                        },
+                        events: formattedEvents
+                    });
+
+                    calendar.render();
+                });
+        });
+    </script>
+{% endblock %}

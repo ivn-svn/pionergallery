@@ -1,0 +1,47 @@
+{% extends 'pioner_gallery/base.html' %}
+{% load static %}
+
+
+{% block gallery %}
+<!--{{ user }} - {{ user.is_authenticated }} -->
+
+<main>
+    <div class="album py-5 bg-light">
+        <div class="container-fluid">
+            <div class="row">
+                {% for user_photo in user_photos %}
+                <div class="gallery col-lg-4 col-md-6">
+                    <div class="photo card shadow-sm">
+                        <img src="{{ user_photo.photo.url }}" alt="{{ user_photo }}"
+                             class="bd-placeholder-img card-img-top"
+                             onclick="showLightbox(this)">
+
+                        <!-- Card Footer with Delete Button -->
+                        <div class="card-footer">
+                            {% if user.is_authenticated %}
+                            <div style="display: inline-flex; gap: 5px; align-items: center;">
+                                <!-- Notice the change below, from user.username to viewed_user.username -->
+                                <form method="post" action="{% url 'edit_gallery' viewed_user.username %}"
+                                      style="display: inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="photo_id" value="{{ user_photo.id }}"/>
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete Photo</button>
+                                </form>
+
+                                <a href="{% url 'edit_uploaded_photo' user_photo.id %}" class="btn btn-sm"
+                                   style="background-color: #FFDAB9; color: #333;">Edit Photo</a>
+                            </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Include the lightbox script and style here -->
+<!-- ... (The provided lightbox script and style) ... -->
+
+{% endblock %}

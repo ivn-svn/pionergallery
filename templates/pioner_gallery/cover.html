@@ -1,0 +1,330 @@
+{% extends 'pioner_gallery/base.html' %}
+{% load static %}
+{% block cover %}
+
+
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
+        @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
+
+        /* Override UGG site */
+        #main {
+            width: 100%;
+            padding: 0;
+        }
+
+        .content-asset p {
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: none;
+        }
+
+        /* Helpers */
+        /**************************/
+        .margin-top-10 {
+            padding-top: 10px;
+        }
+
+        .margin-bot-10 {
+            padding-bottom: 10px;
+        }
+
+        /* Typography */
+        /**************************/
+        #parallax-wgg h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 24px;
+            font-weight: 400;
+            text-transform: uppercase;
+            color: black;
+            padding: 0;
+            margin: 0;
+        }
+
+        #parallax-wgg h2 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 70px;
+            letter-spacing: 10px;
+            text-align: center;
+            color: white;
+            font-weight: 400;
+            text-transform: uppercase;
+            z-index: 10;
+            opacity: .9;
+        }
+
+        #parallax-wgg h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            line-height: 0;
+            font-weight: 400;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: black;
+        }
+
+        #parallax-wgg p {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 24px;
+        }
+
+        .first-character {
+            font-weight: 400;
+            float: left;
+            font-size: 84px;
+            line-height: 64px;
+            padding-top: 4px;
+            padding-right: 8px;
+            padding-left: 3px;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .sc {
+            color: #3b8595;
+        }
+
+        .ny {
+            color: #3d3c3a;
+        }
+
+        .atw {
+            color: #c48660;
+        }
+
+        /* Section - Title */
+        /**************************/
+        #parallax-wgg .title {
+            background: white;
+            padding: 60px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #parallax-wgg .title h1 {
+            font-size: 35px;
+            letter-spacing: 8px;
+        }
+
+        /* Section - Block */
+        /**************************/
+        #parallax-wgg .block {
+            background: white;
+            padding: 60px;
+            width: 820px;
+            margin: 0 auto;
+            text-align: justify;
+        }
+
+        #parallax-wgg .block-gray {
+            background: #f2f2f2;
+            padding: 60px;
+        }
+
+        #parallax-wgg .section-overlay-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0.70;
+        }
+
+        /* Section - Parallax */
+        /**************************/
+        #parallax-wgg .parallax-one {
+            padding-top: 200px;
+            padding-bottom: 200px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            background-image: url(https://live.staticflickr.com/65535/53100487501_8e08ef2cd1_b.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top center;
+        }
+
+        #parallax-wgg .parallax-two {
+            padding-top: 200px;
+            padding-bottom: 200px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            background-image: url(https://live.staticflickr.com/65535/53100499491_4e014e5c16_b.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        #parallax-wgg .parallax-three {
+            padding-top: 200px;
+            padding-bottom: 200px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            background-image: url(https://live.staticflickr.com/65535/53100926345_3c4dfcfbfc_k.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+            -moz-background-size: cover;
+            -webkit-background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        /* Extras */
+        /**************************/
+        #parallax-wgg .line-break {
+            border-bottom: 1px solid black;
+            width: 150px;
+            margin: 0 auto;
+        }
+
+        /* Media Queries */
+        /**************************/
+        @media screen and (max-width: 959px) and (min-width: 768px) {
+            #parallax-wgg .block {
+                padding: 40px;
+                width: 620px;
+            }
+        }
+
+        @media screen and (max-width: 767px) {
+            #parallax-wgg .block {
+                padding: 30px;
+                width: 420px;
+            }
+
+            #parallax-wgg h2 {
+                font-size: 30px;
+            }
+
+            #parallax-wgg .block {
+                padding: 30px;
+            }
+
+            #parallax-wgg .parallax-one, #parallax-wgg .parallax-two, #parallax-wgg .parallax-three {
+                padding-top: 100px;
+                padding-bottom: 100px;
+            }
+        }
+
+        @media screen and (max-width: 479px) {
+            #parallax-wgg .block {
+                padding: 30px 15px;
+                width: 290px;
+            }
+        }
+    </style>
+    <!------ Include the above in your HEAD tag ---------->
+
+    <div id="parallax-wgg">
+
+        <section>
+            <div class="title">
+                <h3>ORGANIZE YOUR CONTENT</h3>
+                <h1>WITH LEO MEDIA BOARD</h1>
+            </div>
+        </section>
+
+        <section>
+            <div class="parallax-one">
+                <h2>COORDINATE YOUR MEDIA EVENTS</h2>
+            </div>
+        </section>
+
+        <section>
+            <div class="block">
+                <p><span class="first-character sc">I</span>n 2023, Svetlin Ivanov launched the LEO MEDIA BOARD
+                    platform, aiming to revolutionize the way journalists collaborate. Recognizing the challenges faced
+                    by media professionals in coordinating events, she envisioned a platform that would streamline the
+                    process. The digital age had transformed journalism, making it more dynamic and fast-paced.
+                    Journalists needed a tool that could keep up. Svetlin's platform, LEO MEDIA BOARD, became an instant
+                    hit. By the end of its first year, it was adopted by newsrooms across the country, from New York to
+                    Los Angeles. The platform's intuitive design made it easy for journalists to schedule interviews,
+                    plan coverage, and collaborate on stories. Its interactive calendar feature ensured no event was
+                    overlooked, while the media galleries allowed for easy sharing and storage of photos, videos, and
+                    audio clips.</p>
+                <p class="line-break margin-top-10"></p>
+                <p class="margin-top-10">The LEO MEDIA BOARD wasn't just a tool; it was a community. Journalists from
+                    different publications could connect, share insights, and even collaborate on joint projects. The
+                    user management feature ensured that editors, reporters, and freelancers could work together
+                    seamlessly, with customizable access levels for each project. As the platform grew in popularity, it
+                    caught the attention of renowned media personalities and organizations. Soon, it wasn't just
+                    journalists using the platform, but bloggers, influencers, and content creators too. The LEO MEDIA
+                    BOARD had truly democratized media planning and collaboration.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="parallax-two">
+                <h2>INTERACTIVE CALENDAR & MEDIA GALLERIES</h2>
+            </div>
+        </section>
+
+        <section>
+            <div class="block">
+                <p><span class="first-character ny">B</span>eyond its core features, the LEO MEDIA BOARD was committed
+                    to innovation. Recognizing the potential of AI in journalism, the platform introduced a feature that
+                    used machine learning to suggest story ideas, based on trending topics and user interests. This was
+                    a game-changer. Journalists could now stay ahead of the curve, covering stories that were relevant
+                    and timely. The platform's Jira-style organizational board made project management a breeze. Tasks
+                    could be assigned, tracked, and marked as completed, ensuring that every story was thoroughly
+                    covered. The platform also introduced a mentorship program, connecting budding journalists with
+                    seasoned professionals. This fostered a sense of community and ensured that the next generation of
+                    journalists had the guidance they needed to succeed.</p>
+                <p class="line-break margin-top-10"></p>
+                <p class="margin-top-10">As the LEO MEDIA BOARD expanded globally, it introduced features tailored to
+                    different regions. The platform was available in multiple languages, and its event calendar included
+                    local, national, and international events. This made it easier for journalists to plan their
+                    coverage, regardless of their location. The platform also introduced a mobile app, ensuring that
+                    journalists could stay connected, even on the go. With push notifications for breaking news and an
+                    offline mode for remote locations, the app was a must-have for every media professional. The LEO
+                    MEDIA BOARD had truly transformed the world of journalism, making it more collaborative, efficient,
+                    and innovative.</p>
+            </div>
+        </section>
+
+        <section>
+            <div class="parallax-three">
+                <h2>COLLABORATE WITH JOURNALISTS GLOBALLY</h2>
+            </div>
+        </section>
+
+        <section>
+            <div class="block">
+                <p><span class="first-character atw">W</span>ith its global reach, the LEO MEDIA BOARD became a hub for
+                    international collaboration. Journalists from different countries could collaborate on stories,
+                    share insights, and learn from each other. The platform introduced a feature that allowed for
+                    real-time translation, breaking down language barriers. This fostered a sense of global community,
+                    as journalists from different cultures and backgrounds came together to tell stories that mattered.
+                    The platform also introduced webinars and workshops, led by industry experts. These sessions covered
+                    a range of topics, from investigative journalism to digital storytelling. Journalists could upskill,
+                    learn new techniques, and stay updated on the latest industry trends. The LEO MEDIA BOARD was more
+                    than just a platform; it was a movement. A movement that championed collaboration, innovation, and
+                    the power of storytelling.</p>
+                <p class="line-break margin-top-10"></p>
+                <p class="margin-top-10">As the platform continued to evolve, it introduced features that catered to the
+                    changing media landscape. With the rise of podcasting, the LEO MEDIA BOARD introduced a podcasting
+                    suite, allowing journalists to record, edit, and publish podcasts directly from the platform. It
+                    also introduced a feature that allowed journalists to livestream events, ensuring that their
+                    audience stayed informed in real-time. The platform's commitment to innovation ensured that it
+                    remained relevant, even as the media landscape changed. Today, the LEO MEDIA BOARD is a household
+                    name, synonymous with excellence in journalism. It continues to empower journalists, giving them the
+                    tools they need to tell stories that make a difference.</p>
+            </div>
+        </section>
+
+    </div>
+
+
+{% endblock cover %}
